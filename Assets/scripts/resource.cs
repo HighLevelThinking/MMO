@@ -23,6 +23,7 @@ public class resource : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0)){
             player.GetComponent<player_move>().giveItem(type);
+            //Destroy(this.gameObject); comment out untill respawn
         }
     }
 }

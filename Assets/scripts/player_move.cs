@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -20,16 +21,11 @@ public class player_move : MonoBehaviour
     {
         body.linearVelocityX = Input.GetAxis("Horizontal") * speed;
         body.linearVelocityY = Input.GetAxis("Vertical") * speed;
-        for (int i = 0; i < inventory.Length; i++)
-        {
-            Debug.Log(inventory[i,0]);
-            Debug.Log(inventory[i, 1]);
-        }
     }
 
     public void giveItem(int item)
     {
-        for (int i = 0; i < inventory.Length; i++)
+        for (int i = 0; i < inventory.GetLength(0); i++)
         {
             if (inventory[i,0] == item)
             {
@@ -37,12 +33,13 @@ public class player_move : MonoBehaviour
                 break;
             }
         }
-        for (int i = 0; i < inventory.Length; i++)
+        for (int i = 0; i < inventory.GetLength(0); i++)
         {
-            if (inventory[i, 0] == item)
+            if (inventory[i, 0] == 0)
             {
                 inventory[i, 0] = item;
                 inventory[i, 1]++;
+                Debug.Log(i);
                 break;
             }
         }
