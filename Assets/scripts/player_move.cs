@@ -8,6 +8,9 @@ public class player_move : MonoBehaviour
 
     Rigidbody2D body;
 
+    bool canmove = true;
+    KeyCode[] menu_keys = { KeyCode.E };
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,8 +20,20 @@ public class player_move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        body.linearVelocityX = Input.GetAxis("Horizontal") * speed;
-        body.linearVelocityY = Input.GetAxis("Vertical") * speed;
+        if (canmove) 
+        {
+            body.linearVelocityX = Input.GetAxis("Horizontal") * speed;
+            body.linearVelocityY = Input.GetAxis("Vertical") * speed;
+        }
+        canmove = true;
+        foreach (var key in menu_keys)
+        {
+            if (Input.GetKeyDown(key))
+            {
+                canmove = false;
+                break;
+            }
+        }
     }
 
     

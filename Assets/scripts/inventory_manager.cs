@@ -12,6 +12,11 @@ public class inventory_manager : MonoBehaviour
 
     [SerializeField] Sprite rock;
 
+    float height;
+    float width;
+
+    [SerializeField] Vector2 pos_scale;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -20,6 +25,9 @@ public class inventory_manager : MonoBehaviour
             GameObject current_cell = Instantiate(cell, cell_owner.transform);
             current_cell.transform.position = new Vector3((int)i%9,-(int)i/9);
             current_cell.transform.Find("item").GetComponent<SpriteRenderer>().sprite = inventory[i,0] == 1 ? rock : null;
+            Camera cam = Camera.main;
+            height = 2f * cam.orthographicSize;
+            width = height * cam.aspect;
         }
     }
 
@@ -39,7 +47,7 @@ public class inventory_manager : MonoBehaviour
                 current_cell.transform.Find("item").GetComponent<SpriteRenderer>().sprite = inventory[i, 0] == 1 ? rock : null;
             }
         }
-        cell_owner.transform.position = new Vector3(-(Screen.width / 90), (Screen.height / 90));
+        cell_owner.transform.position = new Vector3(-width/pos_scale.x, height/ pos_scale.y);
     }
 
     public void giveItem(int item)
