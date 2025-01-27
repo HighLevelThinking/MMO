@@ -39,7 +39,7 @@ public class inventory_manager : MonoBehaviour
                 current_cell.transform.Find("item").GetComponent<SpriteRenderer>().sprite = inventory[i, 0] == 1 ? rock : null;
             }
         }
-        cell_owner.transform.position = new Vector3(-(Screen.width / 2), -(Screen.height / 2));
+        cell_owner.transform.position = new Vector3(-(Screen.width / 90), (Screen.height / 90));
     }
 
     public void giveItem(int item)
