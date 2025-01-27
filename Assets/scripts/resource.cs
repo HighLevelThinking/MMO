@@ -19,11 +19,10 @@ public class resource : MonoBehaviour
         
     }
 
-    void OnMouseOver()
-    {
-        if (Input.GetMouseButtonDown(0)){
-            player.GetComponent<inventory_manager>().giveItem(type);
-            //Destroy(this.gameObject); comment out untill respawn
-        }
+    void OnMouseDown()
+    {   
+        player.GetComponent<inventory_manager>().giveItem(type);
+        //Destroy(this.gameObject); comment out untill respawn
+   
     }
 }

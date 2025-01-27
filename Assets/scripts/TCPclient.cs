@@ -1,40 +1,100 @@
+using UnityEngine;
 using System;
 using System.Net.Sockets;
 using System.Text;
-using UnityEngine;
+using System.Threading;
 
-public class TCPclient : MonoBehaviour
+public class ClientScript : MonoBehaviour
 {
+    public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
+    public int serverPort = 1948;             // Set this to your server's port.
+    private string messageToSend = "Hello Server!"; // The message to send.
+
     private TcpClient client;
     private NetworkStream stream;
+    private Thread clientReceiveThread;
 
-    public string serverIP = "127.0.0.1"; // Change this to the server's IP if needed
-    public int port = 5000;
+    void OnMouseDown()
+    {
+        ConnectToServer();
+    }
 
-    void Start()
+    void Update()
+    {
+        //disable this if you are sending from another script or a button
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    SendMessageToServer(messageToSend);
+        //}
+    }
+
+    void ConnectToServer()
     {
         try
         {
-            client = new TcpClient(serverIP, port);
+            client = new TcpClient(serverIP, serverPort);
             stream = client.GetStream();
             Debug.Log("Connected to server.");
-            ReceiveMessage();
+
+            clientReceiveThread = new Thread(new ThreadStart(ListenForData));
+            clientReceiveThread.IsBackground = true;
+            clientReceiveThread.Start();
         }
-        catch (Exception e)
+        catch (SocketException e)
         {
-            Debug.LogError($"Error connecting to server: {e.Message}");
+            Debug.LogError("SocketException: " + e.ToString());
         }
     }
 
-    private void ReceiveMessage()
+    private void ListenForData()
     {
-        byte[] buffer = new byte[1024];
-        int bytesRead = stream.Read(buffer, 0, buffer.Length);
-        string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-        Debug.Log($"Message from server: {message}");
+        try
+        {
+            byte[] bytes = new byte[1024];
+            while (true)
+            {
+                // Check if there's any data available on the network stream
+                if (stream.DataAvailable)
+                {
+                    int length;
+                    // Read incoming stream into byte array.
+                    while ((length = stream.Read(bytes, 0, bytes.Length)) != 0)
+                    {
+                        var incomingData = new byte[length];
+                        Array.Copy(bytes, 0, incomingData, 0, length);
+                        // Convert byte array to string message.
+                        string serverMessage = Encoding.UTF8.GetString(incomingData);
+                        Debug.Log("Server message received: " + serverMessage);
+                    }
+                }
+            }
+        }
+        catch (SocketException socketException)
+        {
+            Debug.Log("Socket exception: " + socketException);
+        }
+    }
 
-        // Clean up
-        stream.Close();
-        client.Close();
+    public void SendMessageToServer(string message)
+    {
+        if (client == null || !client.Connected)
+        {
+            Debug.LogError("Client not connected to server.");
+            return;
+        }
+
+        byte[] data = Encoding.UTF8.GetBytes(message);
+        stream.Write(data, 0, data.Length);
+        Debug.Log("Sent message to server: " + message);
+    }
+
+    void OnApplicationQuit()
+    {
+        if (stream != null)
+            stream.Close();
+        if (client != null)
+            client.Close();
+        if (clientReceiveThread != null)
+            clientReceiveThread.Abort();
     }
 }

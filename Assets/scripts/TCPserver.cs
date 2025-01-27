@@ -1,49 +1,86 @@
 using System;
+using System.Text;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+using UnityEngine;
 
-public class TCPserver
+public class TCPserver : MonoBehaviour
 {
-    private TcpListener server;
+    TcpListener server = null;
+    TcpClient client = null;
+    NetworkStream stream = null;
+    Thread thread;
 
-    public TCPserver(int port)
+    private void Start()
     {
-        server = new TcpListener(IPAddress.Any, port);
+        thread = new Thread(new ThreadStart(SetupServer));
+        thread.Start();
     }
 
-    public void Start()
+    private void Update()
     {
-        server.Start();
-        Console.WriteLine("Server started...");
-
-        while (true)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            TcpClient client = server.AcceptTcpClient();
-            Console.WriteLine("Client connected.");
-            Thread clientThread = new Thread(() => HandleClient(client));
-            clientThread.Start();
+            SendMessageToClient("Hello");
         }
     }
 
-    private void HandleClient(TcpClient client)
+    private void SetupServer()
     {
-        NetworkStream stream = client.GetStream();
-        byte[] message = Encoding.UTF8.GetBytes("Hello from server!");
-        stream.Write(message, 0, message.Length);
-        Console.WriteLine("Message sent to client.");
+        try
+        {
+            IPAddress localAddr = IPAddress.Parse("127.0.0.1");
+            server = new TcpListener(localAddr, 8080);
+            server.Start();
 
-        client.Close();
+            byte[] buffer = new byte[1024];
+            string data = null;
+
+            while (true)
+            {
+                Debug.Log("Waiting for connection...");
+                client = server.AcceptTcpClient();
+                Debug.Log("Connected!");
+
+                data = null;
+                stream = client.GetStream();
+
+                int i;
+
+                while ((i = stream.Read(buffer, 0, buffer.Length)) != 0)
+                {
+                    data = Encoding.UTF8.GetString(buffer, 0, i);
+                    Debug.Log("Received: " + data);
+
+                    string response = "Server response: " + data.ToString();
+                    SendMessageToClient(message: response);
+                }
+                client.Close();
+            }
+        }
+        catch (SocketException e)
+        {
+            Debug.Log("SocketException: " + e);
+        }
+        finally
+        {
+            server.Stop();
+        }
     }
-}
 
-// To run the server
-public class Program
-{
-    public static void Main(string[] args)
+    private void OnApplicationQuit()
     {
-        TCPserver server = new TCPserver(5000);
-        server.Start();
+        stream.Close();
+        client.Close();
+        server.Stop();
+        thread.Abort();
+    }
+
+    public void SendMessageToClient(string message)
+    {
+        byte[] msg = Encoding.UTF8.GetBytes(message);
+        stream.Write(msg, 0, msg.Length);
+        Debug.Log("Sent: " + message);
     }
 }
