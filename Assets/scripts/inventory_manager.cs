@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class inventory_manager : MonoBehaviour
@@ -43,8 +44,11 @@ public class inventory_manager : MonoBehaviour
         {
             for (int i = 0; i < inventory.GetLength(0); i++)
             {
-                GameObject current_cell = cell_owner.transform.GetChild(i).gameObject;
-                current_cell.transform.Find("item").GetComponent<SpriteRenderer>().sprite = inventory[i, 0] == 1 ? rock : null;
+                Transform current_cell = cell_owner.transform.GetChild(i);
+                current_cell.Find("item").GetComponent<SpriteRenderer>().sprite = inventory[i, 0] == 1 ? rock : null;
+                GameObject counter = current_cell.Find("Canvas").Find("Count").gameObject;
+                counter.GetComponent<TextMeshProUGUI>().text = inventory[i, 1].ToString();
+                counter.transform.position = new Vector3(-width / pos_scale.x + (int)i % 9, height / pos_scale.y - (int)i / 9,10);
             }
         }
         cell_owner.transform.position = new Vector3(-width/pos_scale.x, height/ pos_scale.y);
@@ -57,7 +61,7 @@ public class inventory_manager : MonoBehaviour
             if (inventory[i, 0] == item)
             {
                 inventory[i, 1]++;
-                break;
+                return;
             }
         }
         for (int i = 0; i < inventory.GetLength(0); i++)
