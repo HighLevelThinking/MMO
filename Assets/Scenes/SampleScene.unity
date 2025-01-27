@@ -547,9 +547,9 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0043069124, y: 0.060297385}
-  m_Size: {x: 0.7335639, y: 1.1077218}
-  m_Direction: 0
+  m_Offset: {x: -0.0043069297, y: -0.4734573}
+  m_Size: {x: 0.733564, y: 0.27501}
+  m_Direction: 1
 --- !u!114 &1316020994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -563,9 +563,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory_showing: 0
-  cell_owner: {fileID: 1078006791}
-  cell: {fileID: 6823421733463272172, guid: 0a9a0170d3b3c5c4582b79e8de120197, type: 3}
-  rock: {fileID: 3452003437791708593, guid: 6b9988f52192ac74fb75146e3c74faff, type: 3}
+  cell_owner: {fileID: 0}
+  cell: {fileID: 0}
+  rock: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
