@@ -820,10 +820,10 @@ PlayerSettings:
   captureStartupLogs: {}
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: 9a8c7504-f234-4cbd-9d69-5479744918c2
+  cloudProjectId: 5727dd9b-b2fa-4c45-a21e-6033939ce3fc
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: MMORPG2 2025-01-26_12-53-16
+  projectName: MMORPG
   organizationId: exponent-games
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
