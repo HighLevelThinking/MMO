@@ -22,7 +22,7 @@ public class resource : MonoBehaviour
     void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0)){
-            player.GetComponent<player_move>().giveItem(type);
+            player.GetComponent<inventory_manager>().giveItem(type);
             //Destroy(this.gameObject); comment out untill respawn
         }
     }

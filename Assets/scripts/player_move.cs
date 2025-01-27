@@ -8,8 +8,6 @@ public class player_move : MonoBehaviour
 
     Rigidbody2D body;
 
-    public int[,] inventory = new int[23,2]; // 9 x 3 invetory
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,25 +21,5 @@ public class player_move : MonoBehaviour
         body.linearVelocityY = Input.GetAxis("Vertical") * speed;
     }
 
-    public void giveItem(int item)
-    {
-        for (int i = 0; i < inventory.GetLength(0); i++)
-        {
-            if (inventory[i,0] == item)
-            {
-                inventory[i,1] ++;
-                break;
-            }
-        }
-        for (int i = 0; i < inventory.GetLength(0); i++)
-        {
-            if (inventory[i, 0] == 0)
-            {
-                inventory[i, 0] = item;
-                inventory[i, 1]++;
-                Debug.Log(i);
-                break;
-            }
-        }
-    }
+    
 }
