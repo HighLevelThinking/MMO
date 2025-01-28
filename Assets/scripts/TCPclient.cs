@@ -8,7 +8,7 @@ public class ClientScript : MonoBehaviour
 {
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 1948;             // Set this to your server's port.
-    private string messageToSend = "Hello Server!"; // The message to send.
+    private string messageToSend = "{\n\"type\":\"input\",\n\"data\":{\n\"keypresses\":[],\n\"mouseClicks\":[0]\n}\n}"; // The message to send.
 
     private TcpClient client;
     private NetworkStream stream;
@@ -21,11 +21,10 @@ public class ClientScript : MonoBehaviour
 
     void Update()
     {
-        //disable this if you are sending from another script or a button
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    SendMessageToServer(messageToSend);
-        //}
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SendMessageToServer(messageToSend);
+        }
     }
 
     void ConnectToServer()
