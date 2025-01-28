@@ -1,0 +1,14 @@
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.AssemblyInfoInputs.cache
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.AssemblyInfo.cs
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.csproj.CoreCompileInputs.cache
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\bin\Debug\net8.0\server.exe
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\bin\Debug\net8.0\server.deps.json
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\bin\Debug\net8.0\server.runtimeconfig.json
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\bin\Debug\net8.0\server.dll
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\bin\Debug\net8.0\server.pdb
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.dll
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\refint\server.dll
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.pdb
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\server.genruntimeconfig.cache
+C:\Users\lgnko\Documents\coding projects\C#\networking\server\obj\Debug\net8.0\ref\server.dll
