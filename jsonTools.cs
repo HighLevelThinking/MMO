@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
 
 public class Deserializer
 {
@@ -33,11 +34,7 @@ public class InputData : MessageData
 {
     public List<string>? Keypresses { get; set; }
     public List<int>? MouseClicks { get; set; }
-
-    public static implicit operator InputData(InputData v)
-    {
-        throw new NotImplementedException();
-    }
+    public int[]? MousePos { get; set; }
 }
 
 public class PlayerData : MessageData
