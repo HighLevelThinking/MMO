@@ -56,5 +56,9 @@
         "temp/": true,
         "Temp/": true
     },
+<<<<<<< HEAD
     "dotnet.defaultSolution": "MMORPG.sln"
+=======
+    "dotnet.defaultSolution": "MMORPG2.sln"
+>>>>>>> cc32d96deaa2a242343303687caf1b3bc255d72b
 }
