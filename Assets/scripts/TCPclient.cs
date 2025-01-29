@@ -3,28 +3,39 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
+using UnityEditor.VersionControl;
 
 public class ClientScript : MonoBehaviour
 {
     public string serverIP = "127.0.0.1"; // Set this to your server's IP address.
     public int serverPort = 1948;             // Set this to your server's port.
-    private string messageToSend = "{\n\"type\":\"input\",\n\"data\":{\n\"keypresses\":[],\n\"mouseClicks\":[0]\n}\n}"; // The message to send.
 
     private TcpClient client;
     private NetworkStream stream;
     private Thread clientReceiveThread;
 
-    void OnMouseDown()
+    [SerializeField] GameObject player;
+
+    void Start()
     {
         ConnectToServer();
     }
 
-    void Update()
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        List<string> keypresses = new List<string> { };
+        foreach (char c in Input.inputString)
         {
-            SendMessageToServer(messageToSend);
+            keypresses.Add(c.ToString());
         }
+        List<int> mouseclicks = new List<int> { };
+        for (int i = 0; i < 5; i++)
+        {
+            if (Input.GetMouseButton(i)) mouseclicks.Add(i);
+        }
+        InputData inputs = new InputData { Keypresses = keypresses,};
+        ListenForData();
     }
 
     void ConnectToServer()
@@ -63,7 +74,7 @@ public class ClientScript : MonoBehaviour
                         Array.Copy(bytes, 0, incomingData, 0, length);
                         // Convert byte array to string message.
                         string serverMessage = Encoding.UTF8.GetString(incomingData);
-                        Debug.Log("Server message received: " + serverMessage);
+                        Message data = Deserializer.DeserializeInput(serverMessage);
                     }
                 }
             }
