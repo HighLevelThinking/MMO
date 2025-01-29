@@ -148,7 +148,7 @@ public class ClientScript : MonoBehaviour
             if (Input.GetMouseButton(i)) mouseclicks.Add(i);
         }
         InputData inputs = new InputData { Keypresses = keypresses, MouseClicks = mouseclicks, };
-        SendMessageToServer(J)
+        SendMessageToServer(J);
         ListenForData();
     }
 
