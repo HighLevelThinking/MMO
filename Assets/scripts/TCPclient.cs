@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Collections.Generic;
 using UnityEditor.VersionControl;
+using Newtonsoft.Json;
 
 public class ClientScript : MonoBehaviour
 {
@@ -35,7 +36,8 @@ public class ClientScript : MonoBehaviour
             if (Input.GetMouseButton(i)) mouseclicks.Add(i);
         }
         InputData inputs = new InputData { Keypresses = keypresses, MouseClicks = mouseclicks, };
-        SendMessageToServer(J)
+        Message message = new Message {Type = "input", Data = inputs};
+        SendMessageToServer(JsonConvert.SerializeObject(message));
         ListenForData();
     }
 
